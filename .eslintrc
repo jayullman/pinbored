@@ -26,7 +26,9 @@
     "no-plusplus": 0,
     "arrow-body-style": 1,
     "no-var": 1,
-    "eol-last": 0
+    "eol-last": 0,
+    "no-multiple-empty-lines": 1,
+    "prefer-template": 0
   },
   "plugins": [
     "react"

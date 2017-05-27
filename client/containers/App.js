@@ -1,5 +1,6 @@
 import React from 'react';
 // import axios from 'axios';
+import PinsContainer from './PinsContainer';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends React.Component {
       <div>
         <div>Hello from React!</div>
         <button onClick={this.authenticate}></button>
+        <PinsContainer />
       </div>
     );
   }
