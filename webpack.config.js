@@ -7,8 +7,7 @@ var config = {
   entry: './client/index.js',
   output: {
     filename: 'index_bundle.js',
-    path: path.join(__dirname, '/dist'),
-    publicPath: '/dist/'
+    path: path.join(__dirname, '/dist')
   },
   module: {
     rules: [
@@ -29,7 +28,7 @@ var config = {
       {
         test: /\.(jpg|gif|png)$/,
         use: 'file-loader?name=[name].[ext]',
-        include: path.join(__dirname, '/client/asstes')
+        include: path.join(__dirname, '/client/assets')
       }
     ]
   },
