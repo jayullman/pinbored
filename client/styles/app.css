@@ -1,3 +1,9 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 /* Use flex box to make sticky footer */
 .app-container {
   display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */

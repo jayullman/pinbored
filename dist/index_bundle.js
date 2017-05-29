@@ -10728,6 +10728,9 @@ module.exports = getIteratorFn;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PinsContainer__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Footer__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_app_css__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_app_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__styles_app_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10738,6 +10741,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 // import axios from 'axios';
+
+
 
 
 var App = function (_React$Component) {
@@ -10762,14 +10767,19 @@ var App = function (_React$Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        null,
+        { className: 'app-container' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          null,
-          'Hello from React!'
+          { className: 'content' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            'Hello from React!'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button', { onClick: this.authenticate }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PinsContainer__["a" /* default */], null)
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button', { onClick: this.authenticate }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PinsContainer__["a" /* default */], null)
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Footer__["a" /* default */], null)
       );
     }
   }]);
@@ -11679,26 +11689,53 @@ AddPinBox.propTypes = {
 var Modal_AddPin = function (_React$Component) {
   _inherits(Modal_AddPin, _React$Component);
 
-  function Modal_AddPin() {
+  function Modal_AddPin(props) {
     _classCallCheck(this, Modal_AddPin);
 
-    return _possibleConstructorReturn(this, (Modal_AddPin.__proto__ || Object.getPrototypeOf(Modal_AddPin)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Modal_AddPin.__proto__ || Object.getPrototypeOf(Modal_AddPin)).call(this, props));
+
+    _this.state = {
+      urlField: ''
+    };
+
+    _this.submitPin = _this.submitPin.bind(_this);
+    _this.handleUrlChange = _this.handleUrlChange.bind(_this);
+    return _this;
   }
 
   _createClass(Modal_AddPin, [{
+    key: 'submitPin',
+    value: function submitPin(event) {
+      event.preventDefault();
+    }
+  }, {
+    key: 'handleUrlChange',
+    value: function handleUrlChange(event) {
+      var value = event.target.value;
+
+      this.setState({ urlField: value });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'modal-addPin' },
+        { className: 'overlay' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'form',
-          null,
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { placeholder: 'Image URL' }),
+          'div',
+          { className: 'modal-addPin' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
-            { onClick: this.props.submitPin },
-            'Submit'
+            'form',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+              placeholder: 'Image URL',
+              value: this.state.urlField,
+              onChange: this.handleUrlChange }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              { onClick: this.submitPin },
+              'Submit'
+            )
           )
         )
       );
@@ -11708,9 +11745,7 @@ var Modal_AddPin = function (_React$Component) {
   return Modal_AddPin;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-Modal_AddPin.propTypes = {
-  submitPin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
-};
+Modal_AddPin.propTypes = {};
 
 var PinsContainer = function (_React$Component2) {
   _inherits(PinsContainer, _React$Component2);
@@ -11725,7 +11760,6 @@ var PinsContainer = function (_React$Component2) {
     };
 
     _this2.showAddPinModal = _this2.showAddPinModal.bind(_this2);
-    _this2.submitPin = _this2.submitPin.bind(_this2);
     return _this2;
   }
 
@@ -11735,11 +11769,6 @@ var PinsContainer = function (_React$Component2) {
       this.setState({ showAddPinModal: true });
     }
   }, {
-    key: 'submitPin',
-    value: function submitPin(url) {
-      __WEBPACK_IMPORTED_MODULE_2__utils_api__["a" /* default */].submitPin(url);
-    }
-  }, {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -11747,7 +11776,8 @@ var PinsContainer = function (_React$Component2) {
         { className: 'pins-container' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(AddPinBox, {
           showAddPinModal: this.showAddPinModal
-        })
+        }),
+        this.state.showAddPinModal && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Modal_AddPin, null)
       );
     }
   }]);
@@ -11783,8 +11813,9 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+/* unused harmony default export */ var _unused_webpack_default_export = ({
   submitPin: function submitPin(url) {
+
     console.log('axios: ' + url);
   }
 });
@@ -25910,6 +25941,80 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+/* 218 */,
+/* 219 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 220 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_footer_css__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_footer_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_footer_css__);
+
+
+
+
+var Footer = function Footer() {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'footer',
+    null,
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'p',
+      null,
+      'View the source code on',
+      ' ',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { target: '_blank',
+          href: 'https://github.com/libeja/pinterest-clone' },
+        'GitHub',
+        ' ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-github', 'aria-hidden': 'true' })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'icons-container' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { href: 'https://github.com/libeja', target: '_blank' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-github-square fa-4x', 'aria-hidden': 'true' })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { href: 'https://www.freecodecamp.com/libeja', target: '_blank' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-free-code-camp fa-4x', 'aria-hidden': 'true' })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { href: 'mailto:jayullman@gmail.com' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-envelope-o fa-4x', 'aria-hidden': 'true' })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'small',
+      null,
+      'Created by Jay'
+    )
+  );
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Footer);
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -1,5 +1,5 @@
 .pins-container {
-
+  /*position: relative;*/
 }
 
 .add-pin-box {
@@ -14,7 +14,26 @@
   height: 500px;
   position: absolute;
   z-index: 10;
-  background-color: #555;
-  top: 50%;
-  transform: translateY(-50%);
+  background-color: #888;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.overlay {
+  top: -100px;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(30%, 30%, 30%, 0.5);
+}
+
+.pin {
+  width: 150px;
+  height: 200px;
+  background: teal;
+  float: left;
+  border: 1px solid black;
+  margin-left: 10px;
 }

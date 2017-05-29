@@ -16,9 +16,7 @@ var config = {
         exclude: /node_modules/,
         use: [
           { loader: 'babel-loader' },
-          {
-            loader: 'eslint-loader',
-          }
+          {loader: 'eslint-loader' }
         ]
       },
       {
@@ -33,7 +31,14 @@ var config = {
     ]
   },
   devServer: {
-    contentBase: __dirname + '/dist'
+    contentBase: __dirname + '/dist',
+    // backend API proxy requests
+    proxy: {
+      '/': {
+        target: 'http://127.0.0.1:3000/',
+        secure: false
+      }
+    }
   },
   // devtool: 'eval-source-map',
   watch: true,

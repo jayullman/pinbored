@@ -1,5 +1,5 @@
 .pins-container {
-
+  /*position: relative;*/
 }
 
 .add-pin-box {
@@ -14,7 +14,77 @@
   height: 500px;
   position: absolute;
   z-index: 10;
-  background-color: #555;
-  top: 50%;
-  transform: translateY(-50%);
+  background-color: #888;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+.overlay {
+  top: -100px;
+  /*height: 500vh;*/
+  bottom: 0;
+  /*left: -50%;*/
+  /*right: 150%;*/
+  /*height: 100%;*/
+  width: 100%;
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(30%, 30%, 30%, 0.5);
+}footer {
+  height: 160px;
+  background: #3a80b2;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 40px;
+  margin-top: 30px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #fff;
+}
+
+.icons-container a {
+		margin: 0 10px;
+		position: relative;
+		transition: all .2s ease-in;
+		text-decoration: none;
+		border: 0;
+}
+
+.icons-container a,
+.icons-container a:visited {
+  color: #fff;
+}
+
+.no-touchevents .icons-container a:hover {
+	top: 3px;
+}html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Use flex box to make sticky footer */
+.app-container {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex; /* NEW, Spec - Firefox, Chrome, Opera */
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
+  -ms-flex: 1;           /* IE 10 */
+  flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
+  margin: 0;
+  padding: 0;
+}
+
+/* End flexbox sticky footer styles */

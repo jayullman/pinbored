@@ -8,7 +8,7 @@ const Footer = () =>
       <p>
         View the source code on{' '}
         <a target='_blank'
-          href='https://github.com/libeja/book-trading-club'>GitHub{' '}
+          href='https://github.com/libeja/pinterest-clone'>GitHub{' '}
           <i className="fa fa-github" aria-hidden="true"></i>
         </a>
       </p>

@@ -34,7 +34,6 @@ module.exports = function (passport) {
           return done(err);
         }
 
-      console.log(user);
         if (user) {
           return done(null, user);
         } else {

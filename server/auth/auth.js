@@ -1,4 +1,4 @@
-const cbURL = process.env.cbURL || 'http://127.0.0.1:3000/auth/twitter/callback'
+const cbURL = process.env.cbURL || 'http://127.0.0.1:8080/auth/twitter/callback'
 
 module.exports = {
   twitterAuth: {
