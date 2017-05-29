@@ -65,6 +65,28 @@ app.get('/allpins', (req, res) => {
   })
 });
 
+app.delete('/deletepin/:pinId', checkIfAuthenticated, (req, res) => {
+  const pinId = req.params.pinId;
+  Pin.findById(pinId, (err, pin) => {
+    if (err) { return console.log(err); }
+
+    if (!pin) {
+      res.json({ message: 'Error: pinId: ' + pinId + ' not found'});
+    } else {
+      Pin.findByIdAndRemove(pinId, (err, pin) => {
+        res.json({ 
+          message: 'Pin successfully deleted',
+          id: pin._id
+         })
+      });
+    }
+  })
+});
+
+app.get('/getmyid', checkIfAuthenticated, (req, res) => {
+  res.json({ twitterId: req.user.twitter.id });
+});
+
 app.get('/isuserauthenticated', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ authStatus: true });
