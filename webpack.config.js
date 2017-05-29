@@ -34,13 +34,13 @@ var config = {
     contentBase: __dirname + '/dist',
     // backend API proxy requests
     proxy: {
-      '/': {
+      '/api': {
         target: 'http://127.0.0.1:3000/',
         secure: false
       }
     }
   },
-  // devtool: 'eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   watch: true,
   plugins: [
     new ExtractTextPlugin('styles.css'),

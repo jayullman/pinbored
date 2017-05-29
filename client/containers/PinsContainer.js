@@ -40,8 +40,10 @@ class Modal_AddPin extends React.Component {
     api.submitPin(this.state.urlField)
       .then((response) => {
         console.log(response);
+        this.props.loadAllPins();
       });
     this.clearUrlField();
+    this.props.closeAddPinModal();
   }
   handleUrlChange(event) {
     const value = event.target.value;
@@ -73,20 +75,32 @@ class Modal_AddPin extends React.Component {
 }
 
 Modal_AddPin.propTypes = {
-  closeAddPinModal: PropTypes.func.isRequired
+  closeAddPinModal: PropTypes.func.isRequired,
+  loadAllPins: PropTypes.func.isRequired
 };
 
+// component returns a pin
 const Pin = (props) => {
   return (
     <div className='pin'>
       This is a pin!
       <img width={150} src={props.imageUrl} />
+
+      {/* ensure delete button is only added when the user is logged in 
+      and it is the user's pin */}
+      {props.isLoggedIn && (Number(props.userId) === props.uploadedBy) &&
+      <button onClick={props.deletePin}>Delete</button>}
+      {/* TODO: Create like link/button */}
     </div>
   );
 }
 
 Pin.propTypes = {
-  imageUrl: PropTypes.string.isRequired
+  imageUrl: PropTypes.string.isRequired,
+  uploadedBy: PropTypes.number.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  deletePin: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired
 };
 
 class PinsContainer extends React.Component {
@@ -100,41 +114,61 @@ class PinsContainer extends React.Component {
 
     this.showAddPinModal = this.showAddPinModal.bind(this);
     this.closeAddPinModal = this.closeAddPinModal.bind(this);
+    this.loadAllPins = this.loadAllPins.bind(this);
+    this.deletePin = this.deletePin.bind(this);
   }
 
   componentDidMount() {
     // load all pins from database
-    api.getAllPins()
-      .then((allPins) => {
-        console.log(allPins);
-        this.setState({ allPins });
-      });
+    this.loadAllPins();
   }
-  
   showAddPinModal() {
     this.setState({ showAddPinModal: true });
   }
   closeAddPinModal() {
     this.setState({ showAddPinModal: false });    
   }
+  loadAllPins() {
+    api.getAllPins.call(this);
+  }
+  deletePin(pinId) {
+    console.log(pinId);
+    api.deletePin(pinId)
+      .then((response) => {
+        console.log(response);
+        this.loadAllPins();
+      });
+  }
 
   render() {
     return (
       <div className='pins-container'>
+        <h3>{this.props.location.pathname}</h3>
         <AddPinBox
           showAddPinModal={this.showAddPinModal}
         />
         {this.state.showAddPinModal && 
-          <Modal_AddPin closeAddPinModal={this.closeAddPinModal} />}
+          <Modal_AddPin 
+            closeAddPinModal={this.closeAddPinModal} 
+            loadAllPins={this.loadAllPins} />}
       
         {this.state.allPins.map((pin, index) => 
           <Pin 
             key={pin.imageUrl + index} 
-            imageUrl={pin.imageUrl}/>
+            imageUrl={pin.imageUrl}
+            isLoggedIn={this.props.isLoggedIn}
+            deletePin={this.deletePin.bind(null, pin._id)}
+            userId={this.props.userId}
+            uploadedBy={pin.uploadedBy} />
         )}
       </div>
     );
   }
 }
+
+PinsContainer.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.string.isRequired
+};
 
 export default PinsContainer;

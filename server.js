@@ -37,7 +37,7 @@ app.get('/auth/twitter/callback',
     // failureRedirect: '/failure'
   }));
 
-app.post('/submitpin', checkIfAuthenticated, (req, res) => {
+app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
   const url = req.body.imageUrl;
   const userTwitterId = req.user.twitter.id;
   console.log(userTwitterId);
@@ -57,7 +57,7 @@ app.post('/submitpin', checkIfAuthenticated, (req, res) => {
   }
 });
 
-app.get('/allpins', (req, res) => {
+app.get('/api/allpins', (req, res) => {
   Pin.find({}, (err, pins) => {
     if (err) { return console.log(err) };
     
@@ -65,7 +65,7 @@ app.get('/allpins', (req, res) => {
   })
 });
 
-app.delete('/deletepin/:pinId', checkIfAuthenticated, (req, res) => {
+app.delete('/api/deletepin/:pinId', checkIfAuthenticated, (req, res) => {
   const pinId = req.params.pinId;
   Pin.findById(pinId, (err, pin) => {
     if (err) { return console.log(err); }
@@ -83,16 +83,20 @@ app.delete('/deletepin/:pinId', checkIfAuthenticated, (req, res) => {
   })
 });
 
-app.get('/getmyid', checkIfAuthenticated, (req, res) => {
+app.get('/api/getmyid', checkIfAuthenticated, (req, res) => {
   res.json({ twitterId: req.user.twitter.id });
 });
 
-app.get('/isuserauthenticated', (req, res) => {
+app.get('/api/isuserauthenticated', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ authStatus: true });
   } else {
     res.json({ authStatus: false });
   }
+});
+
+app.get('/*', (req, res) => {
+  res.redirect('/');
 });
 
 app.listen(port, () => {

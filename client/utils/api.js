@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export default {
   submitPin: (imageUrl) => {
-    return axios.post('/submitpin', {
+    return axios.post('/api/submitpin', {
       imageUrl
     });
   },
   checkIfLoggedIn: () => {
-    return axios('/isuserauthenticated')
+    return axios('/api/isuserauthenticated')
       .then(({ data }) => {
         if (data.authStatus === true) {
           return true;
@@ -16,19 +16,19 @@ export default {
       });
   },
   getAllPins() {
-    axios('/allpins')
+    axios('/api/allpins')
       .then(({ data }) => {
         this.setState({ allPins: data.allPins });
       });
   },
   deletePin(pinId) {
-    return axios.delete(`/deletepin/${pinId}`)
+    return axios.delete(`/api/deletepin/${pinId}`)
       .then((response) => {
         return response.data;
       });
   },
   getUsersTwitterId() {
-    axios('/getmyid')
+    axios('/api/getmyid')
       .then(({ data }) => {
         console.log(data.twitterId);
         this.setState({ twitterId: data.twitterId });
