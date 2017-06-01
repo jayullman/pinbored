@@ -193,14 +193,19 @@ class PinsContainer extends React.Component {
     const pathname = this.props.location.pathname;
     let filteredPins;
 
+    // filter pins based on the route
     if (pathname === '/allpins') {
       filteredPins = this.state.allPins;
     } else if (pathname === '/mypins') {
       filteredPins = this.state.allPins.filter(pin => {
-        console.log(pin.uploadedBy, userId);
         return pin.uploadedBy === Number(userId);
       });
+    } else if (pathname === '/likedpins') {
+      filteredPins = this.state.allPins.filter(pin => {
+        return pin.likes.indexOf(Number(userId)) !== -1;
+      });
     }
+
     return (
       <div className='pins-container'>
         <h3>{this.props.location.pathname}</h3>
