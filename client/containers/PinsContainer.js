@@ -208,7 +208,8 @@ class PinsContainer extends React.Component {
 
     return (
       <div className='pins-container'>
-        <h3>{this.props.location.pathname}</h3>
+        <h3>{pathname === '/allpins' ? 'All Pins' 
+          : pathname === '/mypins' ? 'My Pins' : 'Liked Pins'}</h3>
         <AddPinBox
           showAddPinModal={this.showAddPinModal}
         />
