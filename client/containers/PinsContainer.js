@@ -80,19 +80,57 @@ Modal_AddPin.propTypes = {
 };
 
 // component returns a pin
-const Pin = (props) => {
-  return (
-    <div className='pin'>
-      This is a pin!
-      <img width={150} src={props.imageUrl} />
+class Pin extends React.Component {
+  constructor(props) {
+    super(props);
 
-      {/* ensure delete button is only added when the user is logged in 
-      and it is the user's pin */}
-      {props.isLoggedIn && (Number(props.userId) === props.uploadedBy) &&
-      <button onClick={props.deletePin}>Delete</button>}
-      {/* TODO: Create like link/button */}
-    </div>
-  );
+    this.state = {
+      isLiked: false,
+      numberOfLikes: this.props.likes.length
+    };
+
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+  }
+
+  componentDidMount() {
+    // see if user is among the likes array, set isLiked to true if user has already
+    // liked this pin
+    if (this.props.likes.indexOf(Number(this.props.userId)) !== -1) {
+      this.setState({ isLiked: true });
+    }
+  }
+
+  handleLikeClick() {
+    if (this.state.isLiked) {
+      this.setState({ 
+        isLiked: false,
+        numberOfLikes: this.state.numberOfLikes - 1
+      });
+    } else {
+      this.setState({
+        isLiked: true,
+        numberOfLikes: this.state.numberOfLikes + 1
+      });
+    }
+    this.props.likePin();
+  }
+  render() {
+    return (
+      <div className='pin'>
+        This is a pin!
+        <img width={150} src={this.props.imageUrl} />
+
+        {/* ensure delete button is only added when the user is logged in 
+        and it is the user's pin */}
+        {this.props.isLoggedIn && (Number(this.props.userId) === this.props.uploadedBy) &&
+        <button onClick={this.props.deletePin}>Delete</button>}
+        {/* TODO: Create like link/button */}
+        {this.state.numberOfLikes} likes
+        {this.state.isLiked && <p>this user liked this pin</p>}
+        {this.props.isLoggedIn && <button onClick={this.handleLikeClick}>Like</button>}
+      </div>
+    );
+  }
 }
 
 Pin.propTypes = {
@@ -100,7 +138,9 @@ Pin.propTypes = {
   uploadedBy: PropTypes.number.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePin: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
+  likes: PropTypes.array.isRequired,
+  likePin: PropTypes.func.isRequired
 };
 
 class PinsContainer extends React.Component {
@@ -116,6 +156,7 @@ class PinsContainer extends React.Component {
     this.closeAddPinModal = this.closeAddPinModal.bind(this);
     this.loadAllPins = this.loadAllPins.bind(this);
     this.deletePin = this.deletePin.bind(this);
+    this.likePin = this.likePin.bind(this);
   }
 
   componentDidMount() {
@@ -138,6 +179,13 @@ class PinsContainer extends React.Component {
         console.log(response);
         this.loadAllPins();
       });
+  }
+  likePin(pinId) {
+    console.log('liking');
+    api.likePin(pinId, this.props.userId)
+      .then((response) => {
+        console.log(response);
+      })
   }
 
   render() {
@@ -171,7 +219,9 @@ class PinsContainer extends React.Component {
             isLoggedIn={isLoggedIn}
             deletePin={this.deletePin.bind(null, pin._id)}
             userId={userId}
-            uploadedBy={pin.uploadedBy} />
+            uploadedBy={pin.uploadedBy}
+            likePin={this.likePin.bind(null, pin._id)}
+            likes={pin.likes || []} />
         )}
       </div>
     );

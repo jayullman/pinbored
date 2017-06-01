@@ -56,13 +56,19 @@ class NavContainer extends React.Component {
   // }
 
   renderNavigation() {
-    if (this.state.windowWidth <= 200) {
+    if (this.state.windowWidth <= 600) {
       return (
-        <nav className='burger-menu'>
-          <Menu width={200} isOpen={this.state.isMenuOpen}>
-            {this.navLinks()}
-          </Menu>
-        </nav>
+        <div className='narrow-nav'>
+          <nav className='burger-menu'>
+            <Menu width={200} isOpen={this.state.isMenuOpen}>
+              {this.navLinks()}
+            </Menu>
+          </nav>
+            {/* These items will appear outside of the burger menu */}
+            <ul className='outside-burger-links'>
+              <li><Link to='/'>Outside Burger Link</Link></li>
+            </ul>
+        </div>
       );
     }
     return (

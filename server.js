@@ -85,7 +85,38 @@ app.delete('/api/deletepin/:pinId', checkIfAuthenticated, (req, res) => {
          })
       });
     }
-  })
+  });
+});
+
+app.put('/api/likepin/:pinId/:userId', checkIfAuthenticated, (req, res) => {
+  const pinId = req.params.pinId;
+  const userId = req.params.userId;
+
+  Pin.findById(pinId, (err, pin) => {
+    if (err) { return console.log(err); }
+
+    if (!pin) {
+      res.json({ message: 'Error: pinId: ' + pinId + ' not found' });
+    } else {
+      // toggle user from array
+      const index = pin.likes.indexOf(userId);
+      console.log('index: ' + index);
+      // add user to likes array if that user has not already liked the pin
+      if (index === -1) {
+        pin.likes.push(userId);
+      // remove user from likes array if already present
+    } else {
+      console.log('userId present');
+        pin.likes.splice(index, 1);
+      }
+  
+      pin.save((err, savedPin) => {
+        if (err) { return console.log(err); }
+
+        res.json({ updatedPin: savedPin });
+      });
+    }
+  });
 });
 
 app.get('/api/getmyid', checkIfAuthenticated, (req, res) => {

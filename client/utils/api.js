@@ -44,5 +44,8 @@ export default {
         console.log(data.twitterId);
         this.setState({ twitterId: data.twitterId });
       });
+  },
+  likePin(pinId, userId) {
+    return axios.put(`/api/likepin/${pinId}/${userId}`)
   }
 }
