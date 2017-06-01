@@ -141,6 +141,18 @@ class PinsContainer extends React.Component {
   }
 
   render() {
+    const { userId, isLoggedIn } = this.props;
+    const pathname = this.props.location.pathname;
+    let filteredPins;
+
+    if (pathname === '/allpins') {
+      filteredPins = this.state.allPins;
+    } else if (pathname === '/mypins') {
+      filteredPins = this.state.allPins.filter(pin => {
+        console.log(pin.uploadedBy, userId);
+        return pin.uploadedBy === Number(userId);
+      });
+    }
     return (
       <div className='pins-container'>
         <h3>{this.props.location.pathname}</h3>
@@ -152,13 +164,13 @@ class PinsContainer extends React.Component {
             closeAddPinModal={this.closeAddPinModal} 
             loadAllPins={this.loadAllPins} />}
       
-        {this.state.allPins.map((pin, index) => 
+        {filteredPins.map((pin, index) => 
           <Pin 
             key={pin.imageUrl + index} 
             imageUrl={pin.imageUrl}
-            isLoggedIn={this.props.isLoggedIn}
+            isLoggedIn={isLoggedIn}
             deletePin={this.deletePin.bind(null, pin._id)}
-            userId={this.props.userId}
+            userId={userId}
             uploadedBy={pin.uploadedBy} />
         )}
       </div>

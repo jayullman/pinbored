@@ -15,6 +15,17 @@ export default {
         return false;
       });
   },
+  logout() {
+    return axios.post('/api/logout')
+      .then(({ data }) => {
+        console.log(data);
+        if (!data.error) {
+          // return true value if log out was successful
+          return true;
+        }
+        return false;
+      });
+  },
   getAllPins() {
     axios('/api/allpins')
       .then(({ data }) => {

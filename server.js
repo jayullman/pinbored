@@ -37,6 +37,11 @@ app.get('/auth/twitter/callback',
     // failureRedirect: '/failure'
   }));
 
+app.post('/api/logout', function (req, res) {
+  req.logout();
+  res.json({ message: 'logout successful' });
+});
+
 app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
   const url = req.body.imageUrl;
   const userTwitterId = req.user.twitter.id;

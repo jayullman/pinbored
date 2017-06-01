@@ -1,4 +1,13 @@
-
+.nav-container {
+  height: 50px;
+  /*display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;*/
+  
+}
 
 /* Wide Navbar Styles */
 
@@ -11,11 +20,20 @@
   padding: 10px 0;
 }
 
-.wide-nav li {
-  list-style-type: none;
+.wide-nav ul {
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
 }
 
-
+.wide-nav li {
+  list-style-type: none;
+  margin-right: 10px;
+}
 
 
 /* Burger Menu Styles */

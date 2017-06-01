@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import '../styles/navContainer.css';
@@ -35,8 +36,15 @@ class NavContainer extends React.Component {
       <ul>
         <li key={1}><Link to='/'>Home</Link></li>
         <li key={2}><Link to='/allpins'>All Pins</Link></li>
-        <li key={3}><Link to='/mypins'>My Pins</Link></li>
+        {this.props.isLoggedIn && <li key={3}><Link to='/mypins'>My Pins</Link></li>}
         <li key={4}><Link to='/likedpins'>Liked Pins</Link></li>
+        
+        {!this.props.isLoggedIn 
+          ? <li onClick={this.props.login} className='twitter-login' key={5}>
+            Log in with <i className="fa fa-twitter" aria-hidden="true"></i>
+          </li>
+          : <li onClick={this.props.logout}>Signout</li>}
+        
       </ul>
     );
   }
@@ -48,7 +56,7 @@ class NavContainer extends React.Component {
   // }
 
   renderNavigation() {
-    if (this.state.windowWidth <= 500) {
+    if (this.state.windowWidth <= 200) {
       return (
         <nav className='burger-menu'>
           <Menu width={200} isOpen={this.state.isMenuOpen}>
@@ -72,5 +80,11 @@ class NavContainer extends React.Component {
     );
   }
 }
+
+NavContainer.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
+};
 
 export default NavContainer;
