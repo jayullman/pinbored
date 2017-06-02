@@ -7,9 +7,9 @@ import '../styles/pinsContainer.css'
 
 const AddPinBox = (props) => {
   return (
-    <div className='add-pin-box'>
-      <button onClick={props.showAddPinModal}>Add Pin</button>
-    </div>
+    <button onClick={props.showAddPinModal} className='button'>
+      Add A Pin!
+    </button>
   );
 }
 

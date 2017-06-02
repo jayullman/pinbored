@@ -2,13 +2,6 @@
   /*position: relative;*/
 }
 
-.add-pin-box {
-  width: 150px;
-  height: 200px;
-  background-color: #555;
-  border-radius: 10px;
-}
-
 .modal-addPin {
   width: 500px;
   height: 500px;

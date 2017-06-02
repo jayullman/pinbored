@@ -45,7 +45,6 @@ app.post('/api/logout', function (req, res) {
 app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
   const url = req.body.imageUrl;
   const userTwitterId = req.user.twitter.id;
-  console.log(userTwitterId);
   // check if link is an image
   // Note: this does not test for broken links
   if (isImageUrl(url)) {
@@ -100,13 +99,11 @@ app.put('/api/likepin/:pinId/:userId', checkIfAuthenticated, (req, res) => {
     } else {
       // toggle user from array
       const index = pin.likes.indexOf(userId);
-      console.log('index: ' + index);
       // add user to likes array if that user has not already liked the pin
       if (index === -1) {
         pin.likes.push(userId);
       // remove user from likes array if already present
     } else {
-      console.log('userId present');
         pin.likes.splice(index, 1);
       }
   
