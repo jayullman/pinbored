@@ -1,20 +1,18 @@
 import axios from 'axios';
 
 export default {
-  submitPin: (imageUrl) => {
-    return axios.post('/api/submitpin', {
+  submitPin: imageUrl => 
+    axios.post('/api/submitpin', {
       imageUrl
-    });
-  },
-  checkIfLoggedIn: () => {
-    return axios('/api/isuserauthenticated')
+    }),
+  checkIfLoggedIn: () => 
+    axios('/api/isuserauthenticated')
       .then(({ data }) => {
         if (data.authStatus === true) {
           return true;
         }
         return false;
-      });
-  },
+      }),
   logout() {
     return axios.post('/api/logout')
       .then(({ data }) => {
@@ -34,9 +32,7 @@ export default {
   },
   deletePin(pinId) {
     return axios.delete(`/api/deletepin/${pinId}`)
-      .then((response) => {
-        return response.data;
-      });
+      .then(response => response.data);
   },
   getUsersTwitterId() {
     axios('/api/getmyid')
@@ -46,6 +42,6 @@ export default {
       });
   },
   likePin(pinId, userId) {
-    return axios.put(`/api/likepin/${pinId}/${userId}`)
+    return axios.put(`/api/likepin/${pinId}/${userId}`);
   }
-}
+};

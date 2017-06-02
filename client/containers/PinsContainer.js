@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import api from '../utils/api';
-import '../styles/pinsContainer.css'
+import '../styles/pinsContainer.css';
 
-const AddPinBox = (props) => {
-  return (
-    <button onClick={props.showAddPinModal} className='add-pin-button button'>
-      Add A Pin!
-    </button>
-  );
-}
+const AddPinBox = props => (
+  <button onClick={props.showAddPinModal} className='add-pin-button button'>
+    Add A Pin!
+  </button>
+);
 
 AddPinBox.propTypes = {
   showAddPinModal: PropTypes.func.isRequired
@@ -185,7 +182,7 @@ class PinsContainer extends React.Component {
     api.likePin(pinId, this.props.userId)
       .then((response) => {
         console.log(response);
-      })
+      });
   }
 
   render() {
@@ -197,13 +194,9 @@ class PinsContainer extends React.Component {
     if (pathname === '/allpins') {
       filteredPins = this.state.allPins;
     } else if (pathname === '/mypins') {
-      filteredPins = this.state.allPins.filter(pin => {
-        return pin.uploadedBy === Number(userId);
-      });
+      filteredPins = this.state.allPins.filter(pin => pin.uploadedBy === Number(userId));
     } else if (pathname === '/likedpins') {
-      filteredPins = this.state.allPins.filter(pin => {
-        return pin.likes.indexOf(Number(userId)) !== -1;
-      });
+      filteredPins = this.state.allPins.filter(pin => pin.likes.indexOf(Number(userId)) !== -1);
     }
 
     return (
