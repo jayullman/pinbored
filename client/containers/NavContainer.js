@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import '../styles/navContainer.css';
 /**
@@ -34,10 +34,10 @@ class NavContainer extends React.Component {
   navLinks() {
     return (
       <ul>
-        <li key={1}><Link to='/'>Home</Link></li>
-        <li key={2}><Link to='/allpins'>All Pins</Link></li>
-        {this.props.isLoggedIn && <li key={3}><Link to='/mypins'>My Pins</Link></li>}
-        <li key={4}><Link to='/likedpins'>Liked Pins</Link></li>
+        <li key={1}><NavLink exact activeClassName='active-link' to='/'>Home</NavLink></li>
+        <li key={2}><NavLink activeClassName='active-link' to='/allpins'>All Pins</NavLink></li>
+        {this.props.isLoggedIn && <li key={3}><NavLink activeClassName='active-link' to='/mypins'>My Pins</NavLink></li>}
+        <li key={4}><NavLink activeClassName='active-link' to='/likedpins'>Liked Pins</NavLink></li>
         
         {!this.props.isLoggedIn 
           ? <li onClick={this.props.login} className='twitter-login' key={5}>
@@ -66,7 +66,7 @@ class NavContainer extends React.Component {
           </nav>
             {/* These items will appear outside of the burger menu */}
             <ul className='outside-burger-links'>
-              <li><Link to='/'>Outside Burger Link</Link></li>
+              <li><NavLink to='/'>Outside Burger Link</NavLink></li>
             </ul>
         </div>
       );

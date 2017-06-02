@@ -9,6 +9,15 @@
   
 }
 
+.nav-container a {
+  text-decoration: none;
+  color: #000;
+}
+
+.no-touchevents .nav-container a:hover {
+  border-bottom: 1px solid #000;
+}
+
 .narrow-nav {
 
 }
@@ -131,3 +140,14 @@ nav.bm-item-list {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+a.active-link {
+  font-weight: bold;
+  color: #d81b06;
+}
+
+.no-touchevents .nav-container a.active-link:hover {
+  border-bottom: 1px solid #d81b06;
+}
+
+

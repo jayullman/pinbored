@@ -118,7 +118,6 @@ class Pin extends React.Component {
   render() {
     return (
       <div className='pin'>
-        This is a pin!
         <img width={150} src={this.props.imageUrl} />
 
         {/* ensure delete button is only added when the user is logged in 
@@ -208,7 +207,8 @@ class PinsContainer extends React.Component {
     }
 
     return (
-      <div className='pins-container'>
+      <div 
+        className='pins-container'>
         <h3>{pathname === '/allpins' ? 'All Pins' 
           : pathname === '/mypins' ? 'My Pins' : 'Liked Pins'}</h3>
         <AddPinBox
