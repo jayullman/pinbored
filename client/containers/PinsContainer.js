@@ -7,7 +7,7 @@ import '../styles/pinsContainer.css'
 
 const AddPinBox = (props) => {
   return (
-    <button onClick={props.showAddPinModal} className='button'>
+    <button onClick={props.showAddPinModal} className='add-pin-button button'>
       Add A Pin!
     </button>
   );
@@ -62,11 +62,12 @@ class Modal_AddPin extends React.Component {
         <div className='modal-addPin'>
           <form>
             <input 
+              className='url-pin-input'
               placeholder='Image URL' 
               value={this.state.urlField}
               onChange={this.handleUrlChange} />
-            <button onClick={this.submitPin}>Submit</button>
-            <button onClick={this.handleCancel}>Cancel</button>
+            <button className='button' onClick={this.submitPin}>Submit</button>
+            <button className='button' onClick={this.handleCancel}>Cancel</button>
           </form>
         </div>
       </div>

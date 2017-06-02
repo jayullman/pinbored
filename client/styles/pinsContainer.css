@@ -3,14 +3,20 @@
 }
 
 .modal-addPin {
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  height: 300px;
   position: absolute;
   z-index: 10;
   background-color: #888;
   top: 30%;
   left: 50%;
   transform: translateX(-50%);
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
 }
 
 .overlay {
@@ -19,7 +25,7 @@
   width: 100%;
   position: absolute;
   z-index: 5;
-  background-color: rgba(30%, 30%, 30%, 0.5);
+  background-color: rgba(30%, 30%, 30%, 0.8);
 }
 
 .pin {
@@ -29,4 +35,15 @@
   float: left;
   border: 1px solid black;
   margin-left: 10px;
+}
+
+button.add-pin-button {
+  display: block;
+  margin: 10px auto;  
+}
+
+.url-pin-input {
+  width: 60%;
+  display: block;
+  margin: 10px auto;
 }

@@ -10,10 +10,10 @@ body {
 
 /* Use flex box to make sticky footer */
 .app-container {
-  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-  display: -ms-flexbox;  /* TWEENER - IE 10 */
-  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  display: flex; /* NEW, Spec - Firefox, Chrome, Opera */
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex; 
   flex-direction: column;
   min-height: 100vh;
   padding: 0;
@@ -21,9 +21,9 @@ body {
 }
 
 .content {
-  -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
-  -ms-flex: 1;           /* IE 10 */
-  flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
+  -webkit-flex: 1;  
+  -ms-flex: 1;      
+  flex: 1;          
   margin: 0;
   padding: 0;
 }
@@ -34,13 +34,13 @@ body {
   color: #4286f4;
   background-color: #fff;
   font-size: 16px;
-  width: 200px;
+  width: 150px;
   padding: 7px 0;
-  margin: 10px auto;
+  margin: 10px;
   border: 2px solid #4286f4;
   border-radius: 5px;
   text-align: center;
-  display: block;
+  display: inline-block;
   cursor: pointer;
 }
 
