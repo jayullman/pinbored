@@ -18,8 +18,9 @@ const Home = (props) =>
         who pinned the image. Click it to go to that user's twitter profile.
       </p>
       <p>
-        You must first <span className='login-link' onClick={props.login}>log in</span> with twitter to post your own pins or to like other's
-        pins. You do not need to log in order to see other users' pins. Check them out <Link to='/allpins'>here</Link>. 
+        You must first <span className='login-link' onClick={props.login}>log in</span> with twitter 
+        to post your own Pins or to like other's Pins. You do not need to log in order to see other 
+        users' Pins. Check them out <Link to='/allpins'>here</Link>. 
       </p>
     </div>
   );
