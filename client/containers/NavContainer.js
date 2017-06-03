@@ -31,49 +31,59 @@ class NavContainer extends React.Component {
     window.removeEventListener('resize', this.handleResize.bind(this));
   }
 
-  navLinks() {
+  wideNavLinks() {
     return (
       <ul>
         <li key={1}><NavLink className='home-link' exact activeClassName='active-link' to='/'>Home</NavLink></li>
         <li key={2}><NavLink activeClassName='active-link' to='/allpins'>All Pins</NavLink></li>
         {this.props.isLoggedIn && <li key={3}><NavLink activeClassName='active-link' to='/mypins'>My Pins</NavLink></li>}
         {this.props.isLoggedIn && <li key={4}><NavLink activeClassName='active-link' to='/likedpins'>Liked Pins</NavLink></li>}
-        
         {!this.props.isLoggedIn 
           ? <li onClick={this.props.login} className='twitter-login-link' key={5}>
             Log in with <i className="fa fa-twitter" aria-hidden="true"></i>
           </li>
-          : <li className='logout-link' onClick={this.props.logout}>Signout</li>}
-        
+          : <li className='logout-link' onClick={this.props.logout}>Sign out</li>}      
       </ul>
     );
   }
 
-  // renderMobileNav() {
-  //   if (this.state.mobileNavVisible) {
-  //     return this.navLinks();
-  //   }
-  // }
+  /* These items will appear outside of the burger menu when screen is small */ 
+  narrowNavLinks() {
+    return (
+      <ul className='outside-burger-links'>
+        <li key={2}><NavLink activeClassName='active-link' to='/allpins'>All Pins</NavLink></li>
+        {this.props.isLoggedIn && <li key={3}><NavLink activeClassName='active-link' to='/mypins'>My Pins</NavLink></li>}
+        {this.props.isLoggedIn && <li key={4}><NavLink activeClassName='active-link' to='/likedpins'>Liked Pins</NavLink></li>}
+        {!this.props.isLoggedIn && <li onClick={this.props.login} className='twitter-login-link' key={5}>Log in</li>}
+      </ul>
+    );
+  }
+
+  burgerNavLinks() {
+    return (
+      <ul>
+        <li key={1}><NavLink className='home-link' to='/'>Home</NavLink></li>
+        {this.props.isLoggedIn && <li className='logout-link' onClick={this.props.logout}>Sign out</li>}
+      </ul>
+    ); 
+  }
 
   renderNavigation() {
     if (this.state.windowWidth <= 600) {
       return (
         <div className='narrow-nav'>
           <nav className='burger-menu'>
-            <Menu width={200} isOpen={this.state.isMenuOpen}>
-              {this.navLinks()}
+            <Menu width={150} isOpen={this.state.isMenuOpen}>
+              {this.burgerNavLinks()}
             </Menu>
           </nav>
-            {/* These items will appear outside of the burger menu */}
-            <ul className='outside-burger-links'>
-              <li><NavLink to='/'>Outside Burger Link</NavLink></li>
-            </ul>
+          {this.narrowNavLinks()}
         </div>
       );
     }
     return (
       <nav className='wide-nav'>
-        {this.navLinks()}
+        {this.wideNavLinks()}
       </nav>
     );
   }

@@ -5,7 +5,7 @@ import '../styles/header.css';
 const Header = () => (
   <header>
     <div className='hero-header'>
-      <h1>PinBored</h1>
+      <h1>PinBored<br/><i className="fa fa-thumb-tack" aria-hidden="true" /></h1>
       <h3>...because time is for wasting</h3>
       <i className="fa fa-chevron-down fa-3x down-arrow" aria-hidden="true"></i>
     </div>

@@ -1,12 +1,5 @@
 .nav-container {
   height: 50px;
-  /*display: -webkit-box; 
-  display: -ms-flexbox; 
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;*/
-  
 }
 
 .nav-container a {
@@ -14,15 +7,34 @@
   color: #000;
 }
 
-.no-touchevents .nav-container a:hover {
+.nav-container li {
+  list-style-type: none;
+}
+
+.no-touchevents .outside-burger-links li:hover,
+.no-touchevents .wide-nav li:hover { 
   border-bottom: 1px solid #000;
 }
 
-.narrow-nav {
-
+.narrow-nav li {
+  border-bottom: 1px solid transparent;
 }
 
+.burger-menu a, 
+.burger-menu li {
+  color: #fff;
+  text-decoration: none;
+}
 
+.no-touchevents .burger-menu a:hover,
+.no-touchevents .burger-menu .twitter-login-link:hover,
+.no-touchevents .burger-menu .logout-link:hover {
+  border-bottom: 2px solid #fff;
+}
+
+.no-touchevents .burger-menu .home-link:hover {
+  border-bottom: 2px solid #fff;  
+}
 
 /* Styles for links outside of burger menu when narrow-nav is rendered */
 .outside-burger-links {
@@ -32,9 +44,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 10px 0;
+  padding: 15px 0;
   margin: 0;
 }
+
 
 /* Wide Navbar Styles */
 
@@ -44,10 +57,10 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: row-reverse;
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
-.home-link {
+.wide-nav .home-link {
   position: absolute;
   left: 20px;
 }
@@ -57,10 +70,10 @@
   cursor: pointer;
 }
 
-.no-touchevents .twitter-login-link:hover,
+/*.no-touchevents .twitter-login-link:hover,
 .no-touchevents .logout-link:hover {
   border-bottom: 1px solid #000;  
-}
+}*/
 
 .wide-nav ul {
   display: -webkit-box; 
@@ -72,8 +85,8 @@
   padding: 0;
 }
 
-.wide-nav li {
-  list-style-type: none;
+.wide-nav li,
+.narrow-nav li {
   margin-right: 20px;
 }
 
@@ -94,11 +107,17 @@
   color: #fff !important;
   margin: 0 0 20px 20px !important;
 }
-
+*/
 nav.bm-item-list {
   text-align: left;
-}*/
-
+}
+nav.bm-item-list ul {
+  text-align: left;
+  padding: 0;
+}
+nav.bm-item-list li {
+  margin-bottom: 20px;
+}
 /* links outside of sliding menu */
 /*.burger-menu a.allbooks-link,
 .burger-menu a.mybooks-link,
@@ -115,7 +134,7 @@ nav.bm-item-list {
   width: 25px;
   height: 20px;
   left: 10px;
-  top: 10px;
+  top: 15px;
 }
 
 /* Color/shape of burger icon bars */
@@ -150,7 +169,7 @@ nav.bm-item-list {
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
-  padding: 0.8em;
+  padding: 0;
 }
 
 /* Styling of overlay */

@@ -113,7 +113,7 @@ class Pin extends React.Component {
     return (
       <div className='pin'>
         {/* If the imageUrl is empty, load the broken image jpg */}
-        <img src={this.props.imageUrl || '/Sad-face.jpg'} />
+        <img src={this.props.imageUrl || '/broken_link.jpg'} />
 
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
@@ -130,7 +130,7 @@ class Pin extends React.Component {
           <span className='like-count'>{this.state.numberOfLikes}</span>
         </div>
           {this.props.profileImgUrl 
-          ? <a href={`https://twitter.com/${this.props.uploaderTwitterUserName}`}><img className='profile-image' src={this.props.profileImgUrl} /></a>
+          ? <a target='_blank' href={`https://twitter.com/${this.props.uploaderTwitterUserName}`}><img className='profile-image' src={this.props.profileImgUrl} /></a>
             : null}
       </div>
     );

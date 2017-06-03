@@ -7,6 +7,9 @@ body {
 body {
   text-align: center;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-width: 275px;
+  background: #f7f7f7;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
