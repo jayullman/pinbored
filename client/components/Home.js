@@ -6,7 +6,7 @@ import Header from './Header';
 
 import '../styles/home.css';
 
-const Home = (props) =>
+const Home = props =>
   (
     <div className='homepage'>
       <Header />

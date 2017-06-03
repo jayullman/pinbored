@@ -104,7 +104,7 @@ class Pin extends React.Component {
     if (this.props.likes.indexOf(Number(this.props.userId)) !== -1) {
       this.setState({ isLiked: true });
     }
-    
+
     // set event listeners for tooltip
     if (this.disabledHeart) {
       this.disabledHeart.addEventListener('mouseenter', this.showToolTip);
@@ -156,7 +156,7 @@ class Pin extends React.Component {
           {/* display filled in heart button if the user has already liked this pin */}
           {this.props.isLoggedIn && this.state.isLiked 
             && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
-          {!this.props.isLoggedIn && <i ref={heart => { this.disabledHeart = heart; }} className="heart-like-button heart-disabled fa fa-heart" aria-hidden="true"></i>}  
+          {!this.props.isLoggedIn && <i ref={(heart) => { this.disabledHeart = heart; }} className="heart-like-button heart-disabled fa fa-heart" aria-hidden="true"></i>}  
           <span className='like-count'>{this.state.numberOfLikes}</span>
         </div>
           {this.props.profileImgUrl 

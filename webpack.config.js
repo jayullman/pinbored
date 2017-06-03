@@ -40,7 +40,6 @@ var config = {
       }
     }
   },
-  devtool: 'cheap-module-eval-source-map',
   watch: true,
   plugins: [
     new ExtractTextPlugin('styles.css'),
@@ -59,6 +58,8 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.optimize.UglifyJsPlugin()
   );
+} else {
+  config.devtool = 'cheap-module-eval-source-map';
 }
 
 module.exports = config;
