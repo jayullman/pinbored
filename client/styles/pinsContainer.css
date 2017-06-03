@@ -4,15 +4,6 @@
   padding-top: 20px;
 }
 
-/*.inner-pins-container {
-  display: -webkit-box; 
-  display: -ms-flexbox; 
-  display: -webkit-flex;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 30px;
-}*/
-
 .outer-pins-container h2 {
   color: #fff;
   font-weight: 300;
@@ -73,7 +64,7 @@
 }
 
 /* clearfix */
-.grid:after {
+.masonry-grid:after {
   content: '';
   display: block;
   clear: both;

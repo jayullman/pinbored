@@ -1,12 +1,8 @@
-/**
- * This componenet will return a hero header for the home page and a smaller header
- * for any other page based on props.match.isExact
- */
 import React from 'react';
 
 import '../styles/header.css';
 
-const Header = props => (
+const Header = () => (
   <header>
     <div className='hero-header'>
       <h1>PinBored</h1>

@@ -6,16 +6,6 @@ import imagesLoaded from 'imagesloaded';
 import api from '../utils/api';
 import '../styles/pinsContainer.css';
 
-/*const AddPinBox = props => (
-  <button onClick={props.showAddPinModal} className='add-pin-button button'>
-    Add A Pin!
-  </button>
-);
-
-AddPinBox.propTypes = {
-  showAddPinModal: PropTypes.func.isRequired
-};*/
-console.log(Masonry)
 // displays modal to add pin information
 class Modal_AddPin extends React.Component {
   constructor(props) {
@@ -171,6 +161,12 @@ class PinsContainer extends React.Component {
     this.loadAllPins();
   }
 
+  componentWillReceiveProps() {
+    this.setState({ allPins: [] }, () => {
+      this.loadAllPins();
+    });
+  }
+
   showAddPinModal() {
     this.setState({ showAddPinModal: true });
   }
@@ -180,21 +176,29 @@ class PinsContainer extends React.Component {
 
   // Load Masonry.js layout once all images have loaded
   loadAllPins() {
+    console.log('loading all pins');
     api.getAllPins.call(this)
       .then(() => {
         ////////////////////////////////////////////
         //    MASONRY.JS INITIALIZATION
         ////////////////////////////////////////////
-        const grid = this.grid;
-        const msnry = new Masonry(grid, {
+
+        /**
+         * Article: https://github.com/desandro/masonry/issues/236
+         * used to ensure that masonry reloads after the route changes
+         */
+        this.msnry = new Masonry(this.grid, {
           // options
           itemSelector: '.pin',
-          // columnWidth: 300
+          isInitLayout: false
+          // columnWidth: 250
         });
-        imagesLoaded(grid).on('progress', function () {
+        
+        imagesLoaded(this.grid).on('progress', function () {
           // layout Masonry after each image loads
-          msnry.layout();
-        });
+          this.msnry._isLayoutInited = true;
+          this.msnry.layout();
+        }.bind(this));
       });
   }
   deletePin(pinId) {
@@ -235,7 +239,7 @@ class PinsContainer extends React.Component {
         </button>
         <div
           ref={(grid) => { this.grid = grid; }}
-          className='inner-pins-container grid'>
+          className='masonry-grid'>
           {this.state.showAddPinModal &&
             <Modal_AddPin
               closeAddPinModal={this.closeAddPinModal}

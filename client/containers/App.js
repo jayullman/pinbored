@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import NavContainer from './NavContainer';
 import PinsContainer from './PinsContainer';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
 import Home from '../components/Home';
 import api from '../utils/api';
 import '../styles/app.css';
@@ -81,7 +80,6 @@ class App extends React.Component {
             isLoggedIn={this.state.isLoggedIn}
             login={this.authenticate}
             logout={this.logout} />
-          {/*<Route path='/' component={Header} />*/}
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/allpins' render={AllPins} />
