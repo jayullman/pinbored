@@ -5,7 +5,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const isImageUrl = require('is-image-url');
-var urlExists = require('url-exists');
 const passport = require('passport');
 
 const checkIfAuthenticated = require('./server/utils/checkIfAuthenticated');
@@ -52,14 +51,6 @@ app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
   // check if link is an image
   // Note: this does not test for broken links
   if (isImageUrl(url)) {
-    // check for broken link
-    urlExists(url, function (err, exists) {
-      // if pin exists use the given url, otherwise, leave empty and replace with
-      // broken image on client-side
-      if (!exists) {
-        url = '';
-      }
-
       // create a new pin
       const newPin = Pin({
         imageUrl: url,
@@ -70,8 +61,6 @@ app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
       newPin.save((err, newPin) => {
         res.json(newPin);
       })
-    });
-
   } else {
     res.json({ message: 'Not a valid image link' });
   }

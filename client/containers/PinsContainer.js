@@ -79,10 +79,12 @@ class Pin extends React.Component {
 
     this.state = {
       isLiked: false,
-      numberOfLikes: this.props.likes.length
+      numberOfLikes: this.props.likes.length,
+      linkIsBroken: false
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleBrokenLink = this.handleBrokenLink.bind(this);
   }
 
   componentDidMount() {
@@ -91,6 +93,10 @@ class Pin extends React.Component {
     if (this.props.likes.indexOf(Number(this.props.userId)) !== -1) {
       this.setState({ isLiked: true });
     }
+  }
+
+  handleBrokenLink() {
+    this.setState({ linkIsBroken: true });
   }
 
 // TODO: change this so setstate accepts function instead of object
@@ -112,7 +118,7 @@ class Pin extends React.Component {
     return (
       <div className='pin'>
         {/* If the imageUrl is empty, load the broken image jpg */}
-        <img src={this.props.imageUrl || '/broken_link.jpg'} />
+        <img onError={this.handleBrokenLink} src={this.state.linkIsBroken ? '/broken_link.jpg' : this.props.imageUrl} />
 
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
@@ -184,7 +190,6 @@ class PinsContainer extends React.Component {
 
   // Load Masonry.js layout once all images have loaded
   loadAllPins() {
-    console.log('loading all pins');
     api.getAllPins.call(this)
       .then(() => {
         ////////////////////////////////////////////
