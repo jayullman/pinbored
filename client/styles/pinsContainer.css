@@ -139,3 +139,27 @@ button.add-pin-button {
 .no-touchevents .delete-button:hover {
   color: rgba(0,0,0,1);
 }
+
+.heart-disabled {
+  color: #000;
+  cursor: default;
+  position: relative;
+}
+
+/* Tooltip styles */
+
+.tooltip-disabled-heart {
+  font-size: .8em;
+  padding: 15px 5px 5px 5px;
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  height: 30px;
+  width: 200px;
+  background: yellow;
+  z-index: 999;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 5px;
+  transform: translateX(-50%);
+}

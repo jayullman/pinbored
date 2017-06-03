@@ -80,7 +80,10 @@ class Pin extends React.Component {
     this.state = {
       isLiked: false,
       numberOfLikes: this.props.likes.length,
-      linkIsBroken: false
+      linkIsBroken: false,
+      showToolTip: false,
+      x: null,
+      y: null
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
@@ -92,6 +95,24 @@ class Pin extends React.Component {
     // liked this pin
     if (this.props.likes.indexOf(Number(this.props.userId)) !== -1) {
       this.setState({ isLiked: true });
+    }
+
+    if (this.disabledHeart) {
+      this.disabledHeart.addEventListener('mouseenter', (event) => {
+        this.setState({ 
+          showToolTip: true
+        });
+      });
+      this.disabledHeart.addEventListener('mouseleave', () => {
+        this.setState({ showToolTip: false });
+      });
+    }
+  }
+  
+  componentWillUnmount() {
+    if (this.disabledHeart) {
+      this.disabledHeart.removeEventListener('mouseenter');
+      this.disabledHeart.removeEventListener('mouseleave');
     }
   }
 
@@ -132,11 +153,13 @@ class Pin extends React.Component {
           {/* display filled in heart button if the user has already liked this pin */}
           {this.props.isLoggedIn && this.state.isLiked 
             && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
+          {!this.props.isLoggedIn && <i ref={heart => { this.disabledHeart = heart; }} className="heart-like-button heart-disabled fa fa-heart" aria-hidden="true"></i>}  
           <span className='like-count'>{this.state.numberOfLikes}</span>
         </div>
           {this.props.profileImgUrl 
           ? <a target='_blank' href={`https://twitter.com/${this.props.uploaderTwitterUserName}`}><img className='profile-image' src={this.props.profileImgUrl} /></a>
             : null}
+        {this.state.showToolTip && <div className='tooltip-disabled-heart'>You must be logged in to like a pin</div>}
       </div>
     );
   }
