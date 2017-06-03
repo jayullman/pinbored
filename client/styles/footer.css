@@ -1,16 +1,15 @@
 footer {
   height: 160px;
-  background: #3a80b2;
-  color: #fff;
+  background: #DCB889;
+  color: #000;
   text-align: center;
   padding-bottom: 40px;
-  margin-top: 30px;
 }
 
 footer a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #000;
 }
 
 .icons-container a {
@@ -23,7 +22,7 @@ footer a {
 
 .icons-container a,
 .icons-container a:visited {
-  color: #fff;
+  color: #000;
 }
 
 .no-touchevents .icons-container a:hover {

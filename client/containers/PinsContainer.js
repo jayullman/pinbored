@@ -109,7 +109,6 @@ class Pin extends React.Component {
     this.props.likePin();
   }
   render() {
-    console.log(this.props.imageUrl)
     return (
       <div className='pin'>
         {/* If the imageUrl is empty, load the broken image jpg */}
@@ -246,7 +245,7 @@ class PinsContainer extends React.Component {
             closeAddPinModal={this.closeAddPinModal}
             loadAllPins={this.loadAllPins} />}
         <h2>{pathname === '/allpins' ? 'Pins from all users'
-          : pathname === '/mypins' ? 'My Pins' : 'Your Liked Pins'}</h2>
+          : pathname === '/mypins' ? `${username}'s Pins` : `${username}'s Liked Pins`}</h2>
         {isLoggedIn && 
           <button onClick={this.showAddPinModal} className='add-pin-button button'>
             Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>

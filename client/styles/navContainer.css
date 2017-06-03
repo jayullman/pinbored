@@ -1,5 +1,6 @@
 .nav-container {
   height: 50px;
+  background: #DCB889;
 }
 
 .nav-container a {
@@ -178,7 +179,6 @@ nav.bm-item-list li {
 }
 
 a.active-link {
-  font-weight: bold;
   color: #d81b06;
 }
 

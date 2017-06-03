@@ -1,14 +1,14 @@
 .outer-pins-container {
   background: url('/cork-texture.jpg');
   background-size: cover;
-  padding-top: 20px;
+  padding: 20px 0;
 }
 
 .outer-pins-container h2 {
   color: #fff;
   font-weight: 300;
   font-size: 2em;
-  letter-spacing: .2em;
+  letter-spacing: .1em;
   width: 70%;
   border: 2px dashed #fff;
   border-left: 0;
@@ -78,7 +78,7 @@
 
 button.add-pin-button {
   display: block;
-  margin: 10px auto;  
+  margin: 10px auto 20px auto;  
   border: 0;
   box-shadow: -2px 2px 6px #333;  
 }
