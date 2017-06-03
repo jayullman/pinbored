@@ -24,7 +24,7 @@ export default {
       });
   },
   getAllPins() {
-    axios('/api/allpins')
+    return axios('/api/allpins')
       .then(({ data }) => {
         this.setState({ allPins: data.allPins });
       });

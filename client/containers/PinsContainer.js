@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Masonry from 'masonry-layout';
+import imagesLoaded from 'imagesloaded';
 
 import api from '../utils/api';
 import '../styles/pinsContainer.css';
@@ -13,7 +15,7 @@ import '../styles/pinsContainer.css';
 AddPinBox.propTypes = {
   showAddPinModal: PropTypes.func.isRequired
 };*/
-
+console.log(Masonry)
 // displays modal to add pin information
 class Modal_AddPin extends React.Component {
   constructor(props) {
@@ -116,21 +118,23 @@ class Pin extends React.Component {
   render() {
     return (
       <div className='pin'>
-        <img width={150} src={this.props.imageUrl} />
+        <img src={this.props.imageUrl} />
 
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
         {this.props.isLoggedIn && (Number(this.props.userId) === this.props.uploadedBy) &&
         <i onClick={this.props.deletePin} className="fa fa-times-circle delete-button" aria-hidden="true"></i>}
-        {/* TODO: Create like link/button */}
-        {this.state.numberOfLikes} likes
         
-        {/* display hallow heart button if the user has not liked this pin yet*/}
-        {this.props.isLoggedIn && !this.state.isLiked 
-          && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart-o" aria-hidden="true"></i>}
-        {/* display filled in heart button if the user has already liked this pin */}
-        {this.props.isLoggedIn && this.state.isLiked 
-          && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
+        <div className='like-container'>
+          {/* display hallow heart button if the user has not liked this pin yet*/}
+          {this.props.isLoggedIn && !this.state.isLiked 
+            && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart-o" aria-hidden="true"></i>}
+          {/* display filled in heart button if the user has already liked this pin */}
+          {this.props.isLoggedIn && this.state.isLiked 
+            && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
+          <span className='like-count'>{this.state.numberOfLikes}</span>
+        </div>
+        
       </div>
     );
   }
@@ -173,8 +177,25 @@ class PinsContainer extends React.Component {
   closeAddPinModal() {
     this.setState({ showAddPinModal: false });    
   }
+
+  // Load Masonry.js layout once all images have loaded
   loadAllPins() {
-    api.getAllPins.call(this);
+    api.getAllPins.call(this)
+      .then(() => {
+        ////////////////////////////////////////////
+        //    MASONRY.JS INITIALIZATION
+        ////////////////////////////////////////////
+        const grid = this.grid;
+        const msnry = new Masonry(grid, {
+          // options
+          itemSelector: '.pin',
+          // columnWidth: 300
+        });
+        imagesLoaded(grid).on('progress', function () {
+          // layout Masonry after each image loads
+          msnry.layout();
+        });
+      });
   }
   deletePin(pinId) {
     api.deletePin(pinId)
@@ -209,14 +230,12 @@ class PinsContainer extends React.Component {
       <div className='outer-pins-container'>
         <h2>{pathname === '/allpins' ? 'Pins from all users'
           : pathname === '/mypins' ? 'My Pins' : 'Your Liked Pins'}</h2>
-        {/*<AddPinBox
-          showAddPinModal={this.showAddPinModal}
-        />*/}
         <button onClick={this.showAddPinModal} className='add-pin-button button'>
           Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>
         </button>
         <div
-          className='inner-pins-container'>
+          ref={(grid) => { this.grid = grid; }}
+          className='inner-pins-container grid'>
           {this.state.showAddPinModal &&
             <Modal_AddPin
               closeAddPinModal={this.closeAddPinModal}
