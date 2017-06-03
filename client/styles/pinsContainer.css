@@ -37,10 +37,11 @@
 }
 
 .overlay {
-  top: -100px;
+  height: 100%;
+  top: 0;
   bottom: 0;
   width: 100%;
-  position: absolute;
+  position: fixed;
   z-index: 5;
   background-color: rgba(30%, 30%, 30%, 0.8);
 }

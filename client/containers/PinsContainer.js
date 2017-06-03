@@ -26,6 +26,8 @@ class Modal_AddPin extends React.Component {
   }
   submitPin(event) {
     event.preventDefault();
+
+    // TODO: Show user message if not a valid image
     api.submitPin(this.state.urlField)
       .then(() => {
         this.props.loadAllPins();
@@ -46,11 +48,12 @@ class Modal_AddPin extends React.Component {
 
   render() {
     return (
-      <div className='overlay'>
-        <div className='modal-addPin'>
+      <div onClick={this.handleCancel} className='overlay'>
+        <div onClick={(event) => { event.stopPropagation(); }} className='modal-addPin'>
           <h3>Enter a url to a valid image file</h3>
           <form>
-            <input 
+            <input
+              autoFocus
               className='url-pin-input'
               placeholder='Image URL' 
               value={this.state.urlField}
@@ -238,6 +241,10 @@ class PinsContainer extends React.Component {
 
     return (
       <div className='outer-pins-container'>
+        {this.state.showAddPinModal &&
+          <Modal_AddPin
+            closeAddPinModal={this.closeAddPinModal}
+            loadAllPins={this.loadAllPins} />}
         <h2>{pathname === '/allpins' ? 'Pins from all users'
           : pathname === '/mypins' ? 'My Pins' : 'Your Liked Pins'}</h2>
         {isLoggedIn && 
@@ -247,10 +254,6 @@ class PinsContainer extends React.Component {
         <div
           ref={(grid) => { this.grid = grid; }}
           className='masonry-grid'>
-          {this.state.showAddPinModal &&
-            <Modal_AddPin
-              closeAddPinModal={this.closeAddPinModal}
-              loadAllPins={this.loadAllPins} />}
 
           {filteredPins.map((pin, index) =>
             <Pin
