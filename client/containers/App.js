@@ -85,7 +85,9 @@ class App extends React.Component {
             login={this.authenticate}
             logout={this.logout} />
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' render={() => 
+              <Home login={this.authenticate} />
+            }/>
             <Route path='/allpins' render={AllPins} />
             <Route path='/mypins' render={MyPins} />
             <Route path='/likedpins' render={LikedPins} />

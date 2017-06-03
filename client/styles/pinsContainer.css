@@ -10,9 +10,7 @@
   font-size: 2em;
   letter-spacing: .1em;
   width: 70%;
-  border: 2px dashed #fff;
-  border-left: 0;
-  border-right: 0;
+  border-bottom: 2px solid #fff;
   margin: 10px auto 20px auto;
   padding: 15px 0;
 }

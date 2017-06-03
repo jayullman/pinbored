@@ -1,0 +1,13 @@
+.homepage a,
+.homepage .login-link {
+  color: #d81b06;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.homepage p {
+  width: 80%;
+  max-width: 770px;
+  line-height: 1.4;
+  margin: 30px auto;
+}

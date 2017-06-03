@@ -81,13 +81,21 @@ class Pin extends React.Component {
       isLiked: false,
       numberOfLikes: this.props.likes.length,
       linkIsBroken: false,
-      showToolTip: false,
-      x: null,
-      y: null
+      showToolTip: false
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
     this.handleBrokenLink = this.handleBrokenLink.bind(this);
+    this.showToolTip = this.showToolTip.bind(this);
+    this.hideToolTip = this.hideToolTip.bind(this);
+  }
+
+  showToolTip() {
+    this.setState({ showToolTip: true });
+  }
+
+  hideToolTip() {
+    this.setState({ showToolTip: false });
   }
 
   componentDidMount() {
@@ -96,23 +104,18 @@ class Pin extends React.Component {
     if (this.props.likes.indexOf(Number(this.props.userId)) !== -1) {
       this.setState({ isLiked: true });
     }
-
+    
+    // set event listeners for tooltip
     if (this.disabledHeart) {
-      this.disabledHeart.addEventListener('mouseenter', (event) => {
-        this.setState({ 
-          showToolTip: true
-        });
-      });
-      this.disabledHeart.addEventListener('mouseleave', () => {
-        this.setState({ showToolTip: false });
-      });
+      this.disabledHeart.addEventListener('mouseenter', this.showToolTip);
+      this.disabledHeart.addEventListener('mouseleave', this.hideToolTip);
     }
   }
   
   componentWillUnmount() {
     if (this.disabledHeart) {
-      this.disabledHeart.removeEventListener('mouseenter');
-      this.disabledHeart.removeEventListener('mouseleave');
+      this.disabledHeart.removeEventListener('mouseenter', this.showToolTip);
+      this.disabledHeart.removeEventListener('mouseleave', this.hideToolTip);
     }
   }
 
@@ -273,7 +276,7 @@ class PinsContainer extends React.Component {
             closeAddPinModal={this.closeAddPinModal}
             loadAllPins={this.loadAllPins} />}
         <h2>{pathname === '/allpins' ? 'Pins from all users'
-          : pathname === '/mypins' ? `${username}'s Pins` : `${username}'s Liked Pins`}</h2>
+          : pathname === '/mypins' ? `@${username}'s Pins` : `@${username}'s Liked Pins`}</h2>
         {isLoggedIn && 
           <button onClick={this.showAddPinModal} className='add-pin-button button'>
             Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>
