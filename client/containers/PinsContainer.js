@@ -187,18 +187,18 @@ class PinsContainer extends React.Component {
          * Article: https://github.com/desandro/masonry/issues/236
          * used to ensure that masonry reloads after the route changes
          */
-        this.msnry = new Masonry(this.grid, {
+        const msnry = new Masonry(this.grid, {
           // options
           itemSelector: '.pin',
           isInitLayout: false
           // columnWidth: 250
         });
         
-        imagesLoaded(this.grid).on('progress', function () {
+        imagesLoaded(this.grid).on('progress', () => {
           // layout Masonry after each image loads
-          this.msnry._isLayoutInited = true;
-          this.msnry.layout();
-        }.bind(this));
+          msnry._isLayoutInited = true;
+          msnry.layout();
+        });
       });
   }
   deletePin(pinId) {
