@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import api from '../utils/api';
 import '../styles/pinsContainer.css';
 
-const AddPinBox = props => (
+/*const AddPinBox = props => (
   <button onClick={props.showAddPinModal} className='add-pin-button button'>
     Add A Pin!
   </button>
@@ -12,7 +12,7 @@ const AddPinBox = props => (
 
 AddPinBox.propTypes = {
   showAddPinModal: PropTypes.func.isRequired
-};
+};*/
 
 // displays modal to add pin information
 class Modal_AddPin extends React.Component {
@@ -54,8 +54,9 @@ class Modal_AddPin extends React.Component {
 
   render() {
     return (
-      <div className='overlay'>
+      <div onClick={this.handleCancel} className='overlay'>
         <div className='modal-addPin'>
+          <h3>Enter a url to a valid image file</h3>
           <form>
             <input 
               className='url-pin-input'
@@ -120,7 +121,7 @@ class Pin extends React.Component {
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
         {this.props.isLoggedIn && (Number(this.props.userId) === this.props.uploadedBy) &&
-        <button onClick={this.props.deletePin}>Delete</button>}
+        <i onClick={this.props.deletePin} className="fa fa-times-circle delete-button" aria-hidden="true"></i>}
         {/* TODO: Create like link/button */}
         {this.state.numberOfLikes} likes
         
@@ -165,9 +166,7 @@ class PinsContainer extends React.Component {
     // load all pins from database
     this.loadAllPins();
   }
-  // componentWillReceiveProps() {
-  //   this.loadAllPins();
-  // }
+
   showAddPinModal() {
     this.setState({ showAddPinModal: true });
   }
@@ -207,29 +206,34 @@ class PinsContainer extends React.Component {
     }
 
     return (
-      <div 
-        className='pins-container'>
-        <h3>{pathname === '/allpins' ? 'All Pins' 
-          : pathname === '/mypins' ? 'My Pins' : 'Liked Pins'}</h3>
-        <AddPinBox
+      <div className='outer-pins-container'>
+        <h2>{pathname === '/allpins' ? 'Pins from all users'
+          : pathname === '/mypins' ? 'My Pins' : 'Your Liked Pins'}</h2>
+        {/*<AddPinBox
           showAddPinModal={this.showAddPinModal}
-        />
-        {this.state.showAddPinModal && 
-          <Modal_AddPin 
-            closeAddPinModal={this.closeAddPinModal} 
-            loadAllPins={this.loadAllPins} />}
-      
-        {filteredPins.map((pin, index) => 
-          <Pin 
-            key={pin.imageUrl + index} 
-            imageUrl={pin.imageUrl}
-            isLoggedIn={isLoggedIn}
-            deletePin={this.deletePin.bind(null, pin._id)}
-            userId={userId}
-            uploadedBy={pin.uploadedBy}
-            likePin={this.likePin.bind(null, pin._id)}
-            likes={pin.likes} />
-        )}
+        />*/}
+        <button onClick={this.showAddPinModal} className='add-pin-button button'>
+          Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>
+        </button>
+        <div
+          className='inner-pins-container'>
+          {this.state.showAddPinModal &&
+            <Modal_AddPin
+              closeAddPinModal={this.closeAddPinModal}
+              loadAllPins={this.loadAllPins} />}
+
+          {filteredPins.map((pin, index) =>
+            <Pin
+              key={pin.imageUrl + index}
+              imageUrl={pin.imageUrl}
+              isLoggedIn={isLoggedIn}
+              deletePin={this.deletePin.bind(null, pin._id)}
+              userId={userId}
+              uploadedBy={pin.uploadedBy}
+              likePin={this.likePin.bind(null, pin._id)}
+              likes={pin.likes} />
+          )}
+        </div>
       </div>
     );
   }

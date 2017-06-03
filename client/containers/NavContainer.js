@@ -34,16 +34,16 @@ class NavContainer extends React.Component {
   navLinks() {
     return (
       <ul>
-        <li key={1}><NavLink exact activeClassName='active-link' to='/'>Home</NavLink></li>
+        <li key={1}><NavLink className='home-link' exact activeClassName='active-link' to='/'>Home</NavLink></li>
         <li key={2}><NavLink activeClassName='active-link' to='/allpins'>All Pins</NavLink></li>
         {this.props.isLoggedIn && <li key={3}><NavLink activeClassName='active-link' to='/mypins'>My Pins</NavLink></li>}
         <li key={4}><NavLink activeClassName='active-link' to='/likedpins'>Liked Pins</NavLink></li>
         
         {!this.props.isLoggedIn 
-          ? <li onClick={this.props.login} className='twitter-login' key={5}>
+          ? <li onClick={this.props.login} className='twitter-login-link' key={5}>
             Log in with <i className="fa fa-twitter" aria-hidden="true"></i>
           </li>
-          : <li onClick={this.props.logout}>Signout</li>}
+          : <li className='logout-link' onClick={this.props.logout}>Signout</li>}
         
       </ul>
     );

@@ -1,7 +1,38 @@
 .hero-header {
-  background-color: teal;
+  background: url('/cork-texture.jpg');
+  background-size: cover;
+  position: relative;
+  height: 95vh;
+  width: 100%;
+}
+
+.hero-header h1,
+.hero-header h3 {
+  color: #fff;
+  position: absolute;
+  top: 20%;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  font-size: 4em;
+  font-weight: 200;
+  letter-spacing: .3em;
+}
+
+.hero-header h3 {
+  top: 50%;
+  font-size: 2em;
 }
 
 .small-header {
   background-color: yellow;
+}
+
+.down-arrow {
+  color: #fff;
+  position: absolute;
+  bottom: 15%;
+  -ms-transform: translateX(-50%); 
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); 
 }

@@ -22,6 +22,8 @@
 
 }
 
+
+
 /* Styles for links outside of burger menu when narrow-nav is rendered */
 .outside-burger-links {
   display: -webkit-box; 
@@ -45,6 +47,21 @@
   padding: 10px 0;
 }
 
+.home-link {
+  position: absolute;
+  left: 20px;
+}
+
+.twitter-login-link,
+.logout-link {
+  cursor: pointer;
+}
+
+.no-touchevents .twitter-login-link:hover,
+.no-touchevents .logout-link:hover {
+  border-bottom: 1px solid #000;  
+}
+
 .wide-nav ul {
   display: -webkit-box; 
   display: -ms-flexbox; 
@@ -57,7 +74,7 @@
 
 .wide-nav li {
   list-style-type: none;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 

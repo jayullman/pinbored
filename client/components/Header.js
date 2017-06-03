@@ -8,14 +8,11 @@ import '../styles/header.css';
 
 const Header = props => (
   <header>
-    {/* If route is '/', display hero header */}
-    {props.match.isExact 
-      ? <div className='hero-header'>
-          <h1>Hero Header: Pinterest Clone</h1>
-        </div>
-      : <div className='small-header'>
-        <h1>Small Header: Pinterest Clone</h1>
-      </div>}
+    <div className='hero-header'>
+      <h1>PinBored</h1>
+      <h3>...because time is for wasting</h3>
+      <i className="fa fa-chevron-down fa-3x down-arrow" aria-hidden="true"></i>
+    </div>
   </header>
 );
   

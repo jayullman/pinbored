@@ -81,7 +81,7 @@ class App extends React.Component {
             isLoggedIn={this.state.isLoggedIn}
             login={this.authenticate}
             logout={this.logout} />
-          <Route path='/' component={Header} />
+          {/*<Route path='/' component={Header} />*/}
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/allpins' render={AllPins} />
