@@ -1,6 +1,6 @@
 .outer-pins-container {
   background: url('/cork-texture.jpg');
-  background-size: cover;
+  background-size: contain;
   padding: 20px 0;
 }
 
@@ -25,6 +25,8 @@
   background-color: #333;
   top: 30%;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   display: -webkit-box; 
   display: -ms-flexbox; 
@@ -97,6 +99,8 @@ button.add-pin-button {
   position: absolute;
   bottom: 5px;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   width: 50px;
 }
@@ -112,6 +116,8 @@ button.add-pin-button {
   position: absolute;
   top: 50%;
   right: 0;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateY(-50%);  
 }
 
@@ -159,5 +165,7 @@ button.add-pin-button {
   background: rgba(0,0,0,0.7);
   color: #fff;
   border-radius: 5px;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }

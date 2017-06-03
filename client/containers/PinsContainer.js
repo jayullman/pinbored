@@ -141,7 +141,7 @@ class Pin extends React.Component {
   render() {
     return (
       <div className='pin'>
-        {/* If the imageUrl is empty, load the broken image jpg */}
+        {/* replace src with a broken image jpb if an error is received */}
         <img onError={this.handleBrokenLink} src={this.state.linkIsBroken ? '/broken_link.jpg' : this.props.imageUrl} />
 
         {/* ensure delete button is only added when the user is logged in 
@@ -229,8 +229,8 @@ class PinsContainer extends React.Component {
         const msnry = new Masonry(this.grid, {
           // options
           itemSelector: '.pin',
-          isInitLayout: false
-          // columnWidth: 250
+          isInitLayout: false,
+          columnWidth: 5
         });
         
         imagesLoaded(this.grid).on('progress', () => {
