@@ -35,8 +35,7 @@ class Modal_AddPin extends React.Component {
   submitPin(event) {
     event.preventDefault();
     api.submitPin(this.state.urlField)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.props.loadAllPins();
       });
     this.clearUrlField();
@@ -98,6 +97,7 @@ class Pin extends React.Component {
     }
   }
 
+// TODO: change this so setstate accepts function instead of object
   handleLikeClick() {
     if (this.state.isLiked) {
       this.setState({ 
@@ -123,8 +123,13 @@ class Pin extends React.Component {
         <button onClick={this.props.deletePin}>Delete</button>}
         {/* TODO: Create like link/button */}
         {this.state.numberOfLikes} likes
-        {this.state.isLiked && <p>this user liked this pin</p>}
-        {this.props.isLoggedIn && <button onClick={this.handleLikeClick}>Like</button>}
+        
+        {/* display hallow heart button if the user has not liked this pin yet*/}
+        {this.props.isLoggedIn && !this.state.isLiked 
+          && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart-o" aria-hidden="true"></i>}
+        {/* display filled in heart button if the user has already liked this pin */}
+        {this.props.isLoggedIn && this.state.isLiked 
+          && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
       </div>
     );
   }
@@ -160,6 +165,9 @@ class PinsContainer extends React.Component {
     // load all pins from database
     this.loadAllPins();
   }
+  // componentWillReceiveProps() {
+  //   this.loadAllPins();
+  // }
   showAddPinModal() {
     this.setState({ showAddPinModal: true });
   }
@@ -170,7 +178,6 @@ class PinsContainer extends React.Component {
     api.getAllPins.call(this);
   }
   deletePin(pinId) {
-    console.log(pinId);
     api.deletePin(pinId)
       .then((response) => {
         console.log(response);
@@ -178,10 +185,10 @@ class PinsContainer extends React.Component {
       });
   }
   likePin(pinId) {
-    console.log('liking');
     api.likePin(pinId, this.props.userId)
       .then((response) => {
         console.log(response);
+        this.loadAllPins();
       });
   }
 
@@ -221,7 +228,7 @@ class PinsContainer extends React.Component {
             userId={userId}
             uploadedBy={pin.uploadedBy}
             likePin={this.likePin.bind(null, pin._id)}
-            likes={pin.likes || []} />
+            likes={pin.likes} />
         )}
       </div>
     );

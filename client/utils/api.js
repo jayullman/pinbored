@@ -16,7 +16,6 @@ export default {
   logout() {
     return axios.post('/api/logout')
       .then(({ data }) => {
-        console.log(data);
         if (!data.error) {
           // return true value if log out was successful
           return true;
@@ -37,7 +36,6 @@ export default {
   getUsersTwitterId() {
     axios('/api/getmyid')
       .then(({ data }) => {
-        console.log(data.twitterId);
         this.setState({ twitterId: data.twitterId });
       });
   },

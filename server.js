@@ -101,9 +101,11 @@ app.put('/api/likepin/:pinId/:userId', checkIfAuthenticated, (req, res) => {
       const index = pin.likes.indexOf(userId);
       // add user to likes array if that user has not already liked the pin
       if (index === -1) {
+        console.log('user not in array')
         pin.likes.push(userId);
       // remove user from likes array if already present
     } else {
+        console.log('user is in array')      
         pin.likes.splice(index, 1);
       }
   

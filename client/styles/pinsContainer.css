@@ -31,10 +31,10 @@
 .pin {
   width: 150px;
   height: 200px;
-  background: teal;
   float: left;
   border: 1px solid black;
   margin-left: 10px;
+  position: relative;
 }
 
 button.add-pin-button {
@@ -46,4 +46,15 @@ button.add-pin-button {
   width: 60%;
   display: block;
   margin: 10px auto;
+}
+
+.heart-like-button {
+  font-size: 2em;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f44242;
 }
