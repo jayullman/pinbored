@@ -5,6 +5,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const isImageUrl = require('is-image-url');
+var urlExists = require('url-exists');
 const passport = require('passport');
 
 const checkIfAuthenticated = require('./server/utils/checkIfAuthenticated');
@@ -44,19 +45,33 @@ app.post('/api/logout', function (req, res) {
 });
 
 app.post('/api/submitpin', checkIfAuthenticated, (req, res) => {
-  const url = req.body.imageUrl;
+  let url = req.body.imageUrl;
   const userTwitterId = req.user.twitter.id;
+  const userImg = req.user.twitter.profileImageUrl;
+  const twitterUserName = req.user.twitter.username;
   // check if link is an image
   // Note: this does not test for broken links
   if (isImageUrl(url)) {
-    // create a new pin
-    const newPin = Pin({
-      imageUrl: url,
-      uploadedBy: userTwitterId
-      });
-    newPin.save((err, newPin) => {
-      res.json(newPin);
-    })
+    // check for broken link
+    urlExists(url, function (err, exists) {
+      // if pin exists use the given url, otherwise, leave empty and replace with
+      // broken image on client-side
+      if (!exists) {
+        url = '';
+      }
+
+      // create a new pin
+      const newPin = Pin({
+        imageUrl: url,
+        uploadedBy: userTwitterId,
+        userProfileImgUrl: userImg,
+        twitterUserName
+        });
+      newPin.save((err, newPin) => {
+        res.json(newPin);
+      })
+    });
+
   } else {
     res.json({ message: 'Not a valid image link' });
   }
@@ -117,8 +132,11 @@ app.put('/api/likepin/:pinId/:userId', checkIfAuthenticated, (req, res) => {
   });
 });
 
-app.get('/api/getmyid', checkIfAuthenticated, (req, res) => {
-  res.json({ twitterId: req.user.twitter.id });
+app.get('/api/getmyinfo', checkIfAuthenticated, (req, res) => {
+  res.json({ 
+    twitterId: req.user.twitter.id,
+    twitterUsername: req.user.twitter.username
+   });
 });
 
 app.get('/api/isuserauthenticated', (req, res) => {

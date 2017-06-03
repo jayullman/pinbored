@@ -33,10 +33,13 @@ export default {
     return axios.delete(`/api/deletepin/${pinId}`)
       .then(response => response.data);
   },
-  getUsersTwitterId() {
-    axios('/api/getmyid')
+  getUsersTwitterInfo() {
+    axios('/api/getmyinfo')
       .then(({ data }) => {
-        this.setState({ twitterId: data.twitterId });
+        this.setState({ 
+          twitterId: data.twitterId,
+          twitterUsername: data.twitterUsername
+        });
       });
   },
   likePin(pinId, userId) {

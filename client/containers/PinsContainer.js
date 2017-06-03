@@ -46,7 +46,7 @@ class Modal_AddPin extends React.Component {
 
   render() {
     return (
-      <div onClick={this.handleCancel} className='overlay'>
+      <div className='overlay'>
         <div className='modal-addPin'>
           <h3>Enter a url to a valid image file</h3>
           <form>
@@ -106,9 +106,11 @@ class Pin extends React.Component {
     this.props.likePin();
   }
   render() {
+    console.log(this.props.imageUrl)
     return (
       <div className='pin'>
-        <img src={this.props.imageUrl} />
+        {/* If the imageUrl is empty, load the broken image jpg */}
+        <img src={this.props.imageUrl || '/Sad-face.jpg'} />
 
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
@@ -124,7 +126,9 @@ class Pin extends React.Component {
             && <i onClick={this.handleLikeClick} className="heart-like-button fa fa-heart" aria-hidden="true"></i>}
           <span className='like-count'>{this.state.numberOfLikes}</span>
         </div>
-        
+          {this.props.profileImgUrl 
+          ? <a href={`https://twitter.com/${this.props.uploaderTwitterUserName}`}><img className='profile-image' src={this.props.profileImgUrl} /></a>
+            : null}
       </div>
     );
   }
@@ -137,7 +141,9 @@ Pin.propTypes = {
   deletePin: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
   likes: PropTypes.array.isRequired,
-  likePin: PropTypes.func.isRequired
+  likePin: PropTypes.func.isRequired,
+  profileImgUrl: PropTypes.string,
+  uploaderTwitterUserName: PropTypes.string
 };
 
 class PinsContainer extends React.Component {
@@ -217,7 +223,7 @@ class PinsContainer extends React.Component {
   }
 
   render() {
-    const { userId, isLoggedIn } = this.props;
+    const { userId, username, isLoggedIn } = this.props;
     const pathname = this.props.location.pathname;
     let filteredPins;
 
@@ -234,9 +240,10 @@ class PinsContainer extends React.Component {
       <div className='outer-pins-container'>
         <h2>{pathname === '/allpins' ? 'Pins from all users'
           : pathname === '/mypins' ? 'My Pins' : 'Your Liked Pins'}</h2>
-        <button onClick={this.showAddPinModal} className='add-pin-button button'>
-          Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>
-        </button>
+        {isLoggedIn && 
+          <button onClick={this.showAddPinModal} className='add-pin-button button'>
+            Add A Pin <i className="fa fa-thumb-tack" aria-hidden="true"></i>
+          </button>}
         <div
           ref={(grid) => { this.grid = grid; }}
           className='masonry-grid'>
@@ -254,7 +261,9 @@ class PinsContainer extends React.Component {
               userId={userId}
               uploadedBy={pin.uploadedBy}
               likePin={this.likePin.bind(null, pin._id)}
-              likes={pin.likes} />
+              likes={pin.likes}
+              profileImgUrl={pin.userProfileImgUrl}
+              uploaderTwitterUserName={pin.twitterUserName} />
           )}
         </div>
       </div>
@@ -264,7 +273,8 @@ class PinsContainer extends React.Component {
 
 PinsContainer.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired
 };
 
 export default PinsContainer;

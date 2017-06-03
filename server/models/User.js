@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     token: String,
     username: String,
     displayName: String,
+    profileImageUrl: String
   }
 });
 

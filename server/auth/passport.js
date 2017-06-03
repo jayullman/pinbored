@@ -29,21 +29,23 @@ module.exports = function (passport) {
     callbackURL: configAuth.twitterAuth.callbackURL
   },
     function (token, tokenSecret, profile, done) {
+      console.log(profile);
       User.findOne({ 'twitter.id': profile.id }, function (err, user) {
         if (err) {
           return done(err);
         }
 
         if (user) {
+          console.log(profile._json.profile_image_url_https);
           return done(null, user);
         } else {
           // create a new user if one was not found
           let newUser = new User();
-
           newUser.twitter.id = profile.id;
           newUser.twitter.token = token;
           newUser.twitter.username = profile.username;
           newUser.twitter.displayName = profile.displayName;
+          newUser.twitter.profileImageUrl = profile._json.profile_image_url_https;
 
           newUser.save(function (err) {
             if (err) throw err;

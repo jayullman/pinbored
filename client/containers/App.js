@@ -14,7 +14,8 @@ class App extends React.Component {
 
     this.state = {
       isLoggedIn: false,
-      twitterId: ''
+      twitterId: '',
+      twitterUsername: ''
     };
     this.authenticate = this.authenticate.bind(this);
     this.logout = this.logout.bind(this);
@@ -26,7 +27,7 @@ class App extends React.Component {
         this.setState({ isLoggedIn });
         // retrieve user's twitter id if logged in
         if (isLoggedIn) {
-          api.getUsersTwitterId.call(this);
+          api.getUsersTwitterInfo.call(this);
         }
       });
   }
@@ -53,6 +54,7 @@ class App extends React.Component {
       <PinsContainer 
         isLoggedIn={this.state.isLoggedIn}
         userId={this.state.twitterId}
+        username={this.state.twitterUsername}
         {...props}
       />
     );
@@ -61,6 +63,7 @@ class App extends React.Component {
       <PinsContainer
         isLoggedIn={this.state.isLoggedIn}
         userId={this.state.twitterId}
+        username={this.state.twitterUsername}
         {...props}        
       />
     );
@@ -69,6 +72,7 @@ class App extends React.Component {
       <PinsContainer
         isLoggedIn={this.state.isLoggedIn}
         userId={this.state.twitterId}
+        username={this.state.twitterUsername}
         {...props}
       />
     );
