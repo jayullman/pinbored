@@ -42,7 +42,9 @@ class NavContainer extends React.Component {
           ? <li onClick={this.props.login} className='twitter-login-link' key={5}>
             Log in with <i className="fa fa-twitter" aria-hidden="true"></i>
           </li>
-          : <li className='logout-link' onClick={this.props.logout}>Sign out</li>}      
+          : <li className='logout-link' onClick={this.props.logout}>Sign out</li>}
+        {this.props.isLoggedIn && this.props.profileImageUrl && 
+        <li><img className='nav-profile-img' src={this.props.profileImageUrl}/></li>}      
       </ul>
     );
   }
@@ -62,6 +64,8 @@ class NavContainer extends React.Component {
   burgerNavLinks() {
     return (
       <ul>
+        {this.props.isLoggedIn && this.props.profileImageUrl &&
+          <li><img className='nav-profile-img-burger' src={this.props.profileImageUrl} /></li>}
         <li key={1}><NavLink className='home-link' to='/'>Home</NavLink></li>
         {this.props.isLoggedIn && <li className='logout-link' onClick={this.props.logout}>Sign out</li>}
       </ul>
@@ -100,7 +104,8 @@ class NavContainer extends React.Component {
 NavContainer.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  profileImageUrl: PropTypes.string.isRequired
 };
 
 export default NavContainer;

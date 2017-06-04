@@ -38,7 +38,8 @@ export default {
       .then(({ data }) => {
         this.setState({ 
           twitterId: data.twitterId,
-          twitterUsername: data.twitterUsername
+          twitterUsername: data.twitterUsername,
+          profileImageUrl: data.profileImageUrl
         });
       });
   },

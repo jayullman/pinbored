@@ -124,7 +124,8 @@ app.put('/api/likepin/:pinId/:userId', checkIfAuthenticated, (req, res) => {
 app.get('/api/getmyinfo', checkIfAuthenticated, (req, res) => {
   res.json({ 
     twitterId: req.user.twitter.id,
-    twitterUsername: req.user.twitter.username
+    twitterUsername: req.user.twitter.username,
+    profileImageUrl: req.user.twitter.profileImageUrl
    });
 });
 

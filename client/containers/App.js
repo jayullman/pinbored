@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       twitterId: '',
-      twitterUsername: ''
+      twitterUsername: '',
+      profileImageUrl: ''
     };
     this.authenticate = this.authenticate.bind(this);
     this.logout = this.logout.bind(this);
@@ -83,7 +84,8 @@ class App extends React.Component {
           <NavContainer
             isLoggedIn={this.state.isLoggedIn}
             login={this.authenticate}
-            logout={this.logout} />
+            logout={this.logout}
+            profileImageUrl={this.state.profileImageUrl} />
           <Switch>
             <Route exact path='/' render={() => 
               <Home login={this.authenticate} />
