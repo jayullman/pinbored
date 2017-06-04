@@ -169,3 +169,11 @@ button.add-pin-button {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }
+
+/* Scale down maximum size of images on smaller screens */
+@media (max-width: 450px) {
+  .pin img {
+    max-width: 125px;
+    max-height: 125px;
+  }
+}
