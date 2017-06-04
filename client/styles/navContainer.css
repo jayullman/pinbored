@@ -13,7 +13,9 @@
 }
 
 .no-touchevents .outside-burger-links li:hover,
-.no-touchevents .wide-nav li:hover { 
+.no-touchevents .wide-nav a:hover,
+.no-touchevents .wide-nav .logout-link:hover,
+.no-touchevents .wide-nav .twitter-login-link:hover { 
   border-bottom: 1px solid #000;
 }
 
@@ -177,5 +179,6 @@ a.active-link {
 }
 
 .no-touchevents .nav-container a.active-link:hover {
+  border-bottom: 0;
   border-bottom: 1px solid #d81b06;
 }
