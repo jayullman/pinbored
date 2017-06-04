@@ -62,7 +62,7 @@
 }
 
 /* set max img dimensions while keeping aspect ratio */
-.pin img {
+.pin-image {
   max-width: 250px;
   max-height: 250px;
   margin: 0;
@@ -172,8 +172,10 @@ button.add-pin-button {
 
 /* Scale down maximum size of images on smaller screens */
 @media (max-width: 450px) {
-  .pin img {
-    max-width: 125px;
-    max-height: 125px;
+  .pin-image {
+    min-width: 125px;
+    min-height: 125px;
+    max-width: 150px;
+    max-height: 150px;
   }
 }

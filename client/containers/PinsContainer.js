@@ -142,7 +142,7 @@ class Pin extends React.Component {
     return (
       <div className='pin'>
         {/* replace src with a broken image jpb if an error is received */}
-        <img onError={this.handleBrokenLink} src={this.state.linkIsBroken ? '/broken_link.jpg' : this.props.imageUrl} />
+        <img className='pin-image' onError={this.handleBrokenLink} src={this.state.linkIsBroken ? '/broken_link.jpg' : this.props.imageUrl} />
 
         {/* ensure delete button is only added when the user is logged in 
         and it is the user's pin */}
