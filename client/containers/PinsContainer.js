@@ -242,15 +242,13 @@ class PinsContainer extends React.Component {
   }
   deletePin(pinId) {
     api.deletePin(pinId)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.loadAllPins();
       });
   }
   likePin(pinId) {
     api.likePin(pinId, this.props.userId)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.loadAllPins();
       });
   }

@@ -38,10 +38,8 @@ class App extends React.Component {
   }
 
   logout() {
-    console.log('here');
     api.logout()
       .then((logOutSuccess) => {
-        console.log(logOutSuccess);
         // if logout was successful, redirect to home page
         if (logOutSuccess) {
           this.context.router.history.push('/');

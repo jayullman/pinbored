@@ -29,14 +29,12 @@ module.exports = function (passport) {
     callbackURL: configAuth.twitterAuth.callbackURL
   },
     function (token, tokenSecret, profile, done) {
-      console.log(profile);
       User.findOne({ 'twitter.id': profile.id }, function (err, user) {
         if (err) {
           return done(err);
         }
 
         if (user) {
-          console.log(profile._json.profile_image_url_https);
           return done(null, user);
         } else {
           // create a new user if one was not found
