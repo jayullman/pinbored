@@ -123,18 +123,17 @@ class Pin extends React.Component {
     this.setState({ linkIsBroken: true });
   }
 
-// TODO: change this so setstate accepts function instead of object
   handleLikeClick() {
     if (this.state.isLiked) {
-      this.setState({ 
+      this.setState(prevState => ({
         isLiked: false,
-        numberOfLikes: this.state.numberOfLikes - 1
-      });
+        numberOfLikes: prevState.numberOfLikes - 1
+      }));
     } else {
-      this.setState({
+      this.setState(prevState => ({
         isLiked: true,
-        numberOfLikes: this.state.numberOfLikes + 1
-      });
+        numberOfLikes: prevState.numberOfLikes + 1
+      }));
     }
     this.props.likePin();
   }
